@@ -1,9 +1,17 @@
 const express = require('express');
+const webSocket = require('ws');
+
 const app = express();
 
-app.get('/', (req, res, next) => {
-  res.send('<h1>Test Server</h1>');
+const webSocketServer = new webSocket.Server({ noServer: true  });
+
+webSocketServer.on('connection', webSocket => {
+    socket.on('message', message => console.log(message));
 });
 
-const port = process.env.PORT || 3000;
-app.listen(port, () => console.log(`Listening on port ${port}`));
+const server = app.listen(3000);
+server.on('upgrade', (request, socket, head) => {
+  webSocketServer.handleUpgrade(request, socket, head, socket => {
+    webSocketServer.emit('connection', socket, request);
+  });
+});
