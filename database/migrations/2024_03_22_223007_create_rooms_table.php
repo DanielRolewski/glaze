@@ -12,9 +12,15 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('rooms', function (Blueprint $table) {
-            $table->id();
-            $table->string('room_id');
-            $table->timestamp('created_at')->nullable();
+            $table->id()->unique();
+            $table->integer('room_id')->unique();
+            $table->boolean('active')->default(false);
+            $table->timestamp('created_at')
+                ->nullable()
+                ->default(null);
+            $table->timestamp('deleted_at')
+                ->nullable()
+                ->default(null);
         });
     }
 
