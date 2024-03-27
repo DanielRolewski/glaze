@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('nickname', length: 80);
             $table->foreign('room_id')->references('id')->on('rooms');
+            $table->boolean('active')->default(false);
             $table->timestamp('created_at')
                 ->nullable()
                 ->default(null);
